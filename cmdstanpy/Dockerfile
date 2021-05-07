@@ -8,4 +8,5 @@ WORKDIR /home/stan
 USER stan
 
 RUN pip install --upgrade cmdstanpy[all] arviz seaborn
+ENV PATH="/home/stan/.local/bin:${PATH}"
 RUN install_cmdstan
