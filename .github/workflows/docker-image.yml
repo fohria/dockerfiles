@@ -14,14 +14,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build --file ./cmdstanpy/Dockerfile --tag fohria/cmdstanpy:latest
+    # - name: Build the Docker image
+    #  run: docker build --file ./cmdstanpy/Dockerfile --tag fohria/cmdstanpy:latest
     # https://github.com/docker/login-action
     - name: Log into Docker Hub
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    - name: Push the image
-      run: docker push fohria/cmdstanpy:latest
+    # - name: Push the image
+    #  run: docker push fohria/cmdstanpy:latest
+    # below from https://github.com/docker/build-push-action/issues/51#issuecomment-702506036
+    - uses: docker/build-push-action@v2
+      with:
+        context: ./cmdstanpy
+        file: ./cmdstanpy/Dockerfile
+        tags: fohria/cmdstanpy:latest
     
